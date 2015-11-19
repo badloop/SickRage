@@ -90,7 +90,7 @@
         % endif
         <%block name="css" />
     </head>
-    <body>
+    <body data-controller="${controller}" data-action="${action}">
         <nav class="navbar navbar-default navbar-fixed-top hidden-print" role="navigation">
             <div class="container-fluid">
                 <div class="navbar-header">
@@ -312,17 +312,20 @@
         </footer>
         <script type="text/javascript" src="${srRoot}/js/vender.min.js?${sbPID}"></script>
         <script type="text/javascript" src="${srRoot}/js/lib/jquery.cookiejar.js?${sbPID}"></script>
+        <script type="text/javascript" src="${srRoot}/js/lib/jquery.form.min.js?${sbPID}"></script>
         <script type="text/javascript" src="${srRoot}/js/lib/jquery.json-2.2.min.js?${sbPID}"></script>
         <script type="text/javascript" src="${srRoot}/js/lib/jquery.selectboxes.min.js?${sbPID}"></script>
-        <script type="text/javascript" src="${srRoot}/js/lib/isotope.pkgd.min.js?${sbPID}"></script><!-- Can't be added to bower -->
         <script type="text/javascript" src="${srRoot}/js/lib/formwizard.js?${sbPID}"></script><!-- Can't be added to bower -->
         <script type="text/javascript" src="${srRoot}/js/new/parsers.js?${sbPID}"></script>
         <script type="text/javascript" src="${srRoot}/js/new/meta.js?${sbPID}"></script>
-        <script type="text/javascript" src="${srRoot}/js/new/core.js?${sbPID}"></script>
+        % if sickbeard.DEVELOPER:
+        <script type="text/javascript" src="${srRoot}/js/core.js?${sbPID}"></script>
+        % else:
+        <script type="text/javascript" src="${srRoot}/js/core.min.js?${sbPID}"></script>
+        % endif
         <script type="text/javascript" src="${srRoot}/js/lib/jquery.scrolltopcontrol-1.1.js?${sbPID}"></script>
         <script type="text/javascript" src="${srRoot}/js/browser.js?${sbPID}"></script>
         <script type="text/javascript" src="${srRoot}/js/ajaxNotifications.js?${sbPID}"></script>
-        <script type="text/javascript" src="${srRoot}/js/confirmations.js?${sbPID}"></script>
     % endif
         <%block name="scripts" />
     </body>

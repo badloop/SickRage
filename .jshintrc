@@ -10,7 +10,7 @@
     "indent": 4,
     "jquery": true,
     "latedef": true,
-    "maxerr": 2,
+    "maxerr": 100,
     "noarg": true,
     "noempty": true,
     "nonbsp": true,
@@ -23,10 +23,12 @@
         "metaToBool": true,
         "getMeta": true,
         "isMeta": true,
+        "topImageHtml": true,
         "generate_bwlist": true,
         "_": true,
         "bootbox": true,
         "PNotify": true,
-        "anonURL": true
+        "anonURL": true,
+        "window": true
     }
 }

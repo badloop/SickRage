@@ -39,7 +39,7 @@ from sickbeard.providers.generic import GenericProvider
 from sickbeard.config import CheckSection, check_setting_int, check_setting_str, check_setting_float, ConfigMigrator, \
     naming_ep_type
 from sickbeard import searchBacklog, showUpdater, versionChecker, properFinder, autoPostProcesser, \
-    subtitles, traktChecker
+    subtitles, traktChecker, numdict
 from sickbeard import db
 from sickbeard import helpers
 from sickbeard import scheduler
@@ -136,7 +136,7 @@ GIT_AUTOISSUES = False
 GIT_NEWVER = False
 DEVELOPER = False
 
-NEWS_URL = 'http://SickRage.github.io/sickrage-news/news.md'
+NEWS_URL = 'http://sickrage.github.io/sickrage-news/news.md'
 NEWS_LAST_READ = None
 NEWS_LATEST = None
 NEWS_UNREAD = 0
@@ -700,6 +700,9 @@ def initialize(consoleLogging=True):
         GIT_REMOTE = check_setting_str(CFG, 'General', 'git_remote', 'origin')
         GIT_REMOTE_URL = check_setting_str(CFG, 'General', 'git_remote_url',
                                            'https://github.com/%s/%s.git' % (GIT_ORG, GIT_REPO))
+
+        if 'sickragetv' in GIT_REMOTE_URL.lower():
+            GIT_REMOTE_URL = 'https://github.com/SickRage/SickRage.git'
 
         # current commit hash
         CUR_COMMIT_HASH = check_setting_str(CFG, 'General', 'cur_commit_hash', '')
