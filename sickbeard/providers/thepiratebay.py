@@ -42,9 +42,9 @@ class ThePirateBayProvider(generic.TorrentProvider):
         self.cache = ThePirateBayCache(self)
 
         self.urls = {
-            'base_url': 'https://pirateproxy.la/',
-            'search': 'https://pirateproxy.la/s/',
-            'rss': 'https://pirateproxy.la/tv/latest'
+            'base_url': 'https://pirateproxy.pl/',
+            'search': 'https://pirateproxy.pl/s/',
+            'rss': 'https://pirateproxy.pl/tv/latest'
         }
 
         self.url = self.urls['base_url']
@@ -52,7 +52,7 @@ class ThePirateBayProvider(generic.TorrentProvider):
 
         """
         205 = SD, 208 = HD, 200 = All Videos
-        https://thepiratebay.gd/s/?q=Game of Thrones&type=search&orderby=7&page=0&category=200
+        https://pirateproxy.pl/s/?q=Game of Thrones&type=search&orderby=7&page=0&category=200
         """
         self.search_params = {
             'q': '',
@@ -62,10 +62,7 @@ class ThePirateBayProvider(generic.TorrentProvider):
             'category': 200
         }
 
-        self.re_title_url = r'/torrent/(?P<id>\d+)/(?P<title>.*?)//1".+?(?P<url>magnet.*?)//1".+?Size (?P<size>[\d\.]*&nbsp;[TGKMiB]{2,3}).+?(?P<seeders>\d+)</td>.+?(?P<leechers>\d+)</td>'
-
-    def isEnabled(self):
-        return self.enabled
+        self.re_title_url = r'/torrent/(?P<id>\d+)/(?P<title>.*?)".+?(?P<url>magnet.*?)".+?Size (?P<size>[\d\.]*&nbsp;[TGKMiB]{2,3}).+?(?P<seeders>\d+)</td>.+?(?P<leechers>\d+)</td>'
 
     def _doSearch(self, search_strings, search_mode='eponly', epcount=0, age=0, epObj=None):
 
@@ -78,22 +75,21 @@ class ThePirateBayProvider(generic.TorrentProvider):
 
                 self.search_params.update({'q': search_string.strip()})
 
-                if mode != 'RSS':
+                if mode is not 'RSS':
                     logger.log(u"Search string: " + search_string, logger.DEBUG)
 
-                searchURL = self.urls[('search', 'rss')[mode == 'RSS']] + '?' + urlencode(self.search_params)
+                searchURL = self.urls[('search', 'rss')[mode is 'RSS']] + '?' + urlencode(self.search_params)
                 logger.log(u"Search URL: %s" % searchURL, logger.DEBUG)
                 data = self.getURL(searchURL)
-                #data = self.getURL(self.urls[('search', 'rss')[mode == 'RSS']], params=self.search_params)
+                # data = self.getURL(self.urls[('search', 'rss')[mode is 'RSS']], params=self.search_params)
                 if not data:
                     continue
 
-                re_title_url = self.proxy._buildRE(self.re_title_url).replace('&amp;f=norefer', '')
-                matches = re.compile(re_title_url, re.DOTALL).finditer(data)
+                matches = re.compile(self.re_title_url, re.DOTALL).finditer(data)
                 for torrent in matches:
                     title = torrent.group('title')
                     download_url = torrent.group('url')
-                    #id = int(torrent.group('id'))
+                    # id = int(torrent.group('id'))
                     size = self._convertSize(torrent.group('size'))
                     seeders = int(torrent.group('seeders'))
                     leechers = int(torrent.group('leechers'))
@@ -101,25 +97,25 @@ class ThePirateBayProvider(generic.TorrentProvider):
                     if not all([title, download_url]):
                         continue
 
-                    #Filter unseeded torrent
+                    # Filter unseeded torrent
                     if seeders < self.minseed or leechers < self.minleech:
-                        if mode != 'RSS':
+                        if mode is not 'RSS':
                             logger.log(u"Discarding torrent because it doesn't meet the minimum seeders or leechers: {0} (S:{1} L:{2})".format(title, seeders, leechers), logger.DEBUG)
                         continue
 
-                    #Accept Torrent only from Good People for every Episode Search
+                    # Accept Torrent only from Good People for every Episode Search
                     if self.confirmed and re.search(r'(VIP|Trusted|Helper|Moderator)', torrent.group(0)) is None:
-                        if mode != 'RSS':
+                        if mode is not 'RSS':
                             logger.log(u"Found result %s but that doesn't seem like a trusted result so I'm ignoring it" % title, logger.DEBUG)
                         continue
 
                     item = title, download_url, size, seeders, leechers
-                    if mode != 'RSS':
+                    if mode is not 'RSS':
                         logger.log(u"Found result: %s " % title, logger.DEBUG)
 
                     items[mode].append(item)
 
-            #For each search mode sort all the items by seeders if available
+            # For each search mode sort all the items by seeders if available
             items[mode].sort(key=lambda tup: tup[3], reverse=True)
 
             results += items[mode]

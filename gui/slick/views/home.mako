@@ -2,17 +2,12 @@
 <%!
     import sickbeard
     import calendar
-    from sickbeard.common import SKIPPED, WANTED, UNAIRED, ARCHIVED, IGNORED, SNATCHED, SNATCHED_PROPER, SNATCHED_BEST, FAILED
-    from sickbeard.common import Quality, qualityPresets, qualityPresetStrings
-    from sickbeard import db, sbdatetime, network_timezones
-    import datetime
+    from sickbeard import sbdatetime
+    from sickbeard import network_timezones
     import re
 %>
 <%block name="metas">
 <meta data-var="max_download_count" data-content="${max_download_count}">
-</%block>
-<%block name="scripts">
-<script type="text/javascript" src="${srRoot}/js/new/home.js?${sbPID}"></script>
 </%block>
 <%block name="content">
 <%namespace file="/inc_defs.mako" import="renderQualityPill"/>
@@ -404,7 +399,7 @@
         <%
             display_status = curShow.status
             if None is not display_status:
-                if re.search('(?i)(?:new|returning)\s*series', curShow.status):
+                if re.search(r'(?i)(?:new|returning)\s*series', curShow.status):
                     display_status = 'Continuing'
                 elif re.search('(?i)(?:nded)', curShow.status):
                     display_status = 'Ended'

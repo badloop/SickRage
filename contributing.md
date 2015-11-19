@@ -1,6 +1,6 @@
 ### Questions about SickRage?
 
-To get your questions answered, please ask on the [SickRage Forum](http://sickrage.tv/),  or [#sickrage](http://webchat.freenode.net/?channels=sickrage) IRC channel on irc.freenode.net
+To get your questions answered, please ask on the [SickRage Forum](http://sickrage.tv/),  or [#sickrage-issues](http://webchat.freenode.net/?channels=sickrage-issues) IRC channel on irc.freenode.net
 
 # Contributing to SickRage
 
@@ -21,7 +21,7 @@ The goal of this guide is to provide the best way to contribute to the official 
 
 The SickRage development team frequently tracks posts on the [SickRage Forum](http://sickrage.tv/). If you have longer posts or questions please feel free to post them there. If you think you've found a bug please [file it in the bug tracker](#how-to-report-bugs).
 
-Additionally most of the SickRage development team can be found in the [#sickrage](http://webchat.freenode.net/?channels=sickrage) IRC channel on irc.freenode.net.
+Additionally most of the SickRage development team can be found in the [#sickrage-issues](http://webchat.freenode.net/?channels=sickrage-issues) IRC channel on irc.freenode.net.
 
 
 ## How to Report Bugs
@@ -30,7 +30,7 @@ Additionally most of the SickRage development team can be found in the [#sickrag
 
 Many bugs reported are actually issues with the user mis-understanding of how something works (there are a bit of moving parts to an ideal setup) and most of the time can be fixed by just changing some settings to fit the users needs.
 
-If you are new to SickRage, it is usually a much better idea to ask for help first in the [Using SickRage Forum](http://sickrage.tv) or the [SickRage IRC channel](http://webchat.freenode.net/?channels=sickrage). You will get much quicker support, and you will help avoid tying up the SickRage team with invalid bug reports.
+If you are new to SickRage, it is usually a much better idea to ask for help first in the [Using SickRage Forum](http://sickrage.tv) or the [SickRage IRC channel](http://webchat.freenode.net/?channels=sickrage-issues). You will get much quicker support, and you will help avoid tying up the SickRage team with invalid bug reports.
 
 ### Try the latest version of SickRage
 
@@ -136,12 +136,14 @@ Please follow this process; it's the best way to get your work included in the p
 ## Code guidelines
 
 ### HTML
-- Use tags and elements appropriate for an HTML5 doctype (e.g., self-closing tags)
-- Use bower components for third-party JS when possible. All other files should be local and not link to a CDN
+- Use tags and elements appropriate for an HTML5 doctype (e.g. self-closing tags).
 - Use [WAI-ARIA](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA) attributes in documentation examples to promote accessibility.
+- DO NOT user any CDNs for any Javascript, CSS or font files.
 
 ### JS
-
-- All non library files should pass full lint tests using the [atom.io js linter](https://atom.io/packages/linter-jshint)
+- All non library files should pass full lint tests using [JSHint](http://jshint.com/) and the .jshintrc file in the .build directory. We suggest using [atom.io's js linter](https://atom.io/packages/linter-jshint) or something similar to lint on the fly.
+- Use bower components for third-party Javascript when possible, if there's no bower package then it must go in the `lib` directory.
+- If the Javascript is not a library then it must be placed in the core.js and then be minified using Grunt as listed below.
 - 4 spaces (no tabs)
-- Code shoud be readable since it all gets minified after development is finished
+- Code should be readable since it all gets minified before shipping.
+- Make sure to run `cd .build && npm install && bower install && grunt` before commiting any javascript to the repo.

@@ -5,8 +5,6 @@
     from sickbeard.helpers import anon_url
 %>
 <%block name="scripts">
-<script type="text/javascript" src="${srRoot}/js/configSubtitles.js?${sbPID}"></script>
-<script type="text/javascript" src="${srRoot}/js/config.js"></script>
 <script>
 $(document).ready(function() {
     $("#subtitles_languages").tokenInput([${','.join("{\"id\": \"" + lang.opensubtitles + "\", name: \"" + lang.name + "\"}" for lang in subtitles.subtitleLanguageFilter())}], {
@@ -146,7 +144,7 @@ $('#subtitles_dir').fileBrowser({ title: 'Select Subtitles Download Directory' }
                                     </label>
                                 </div>
 
-                        <br/><input type="submit" class="btn config_submitter" value="Save Changes" /><br/>
+                        <br><input type="submit" class="btn config_submitter" value="Save Changes" /><br>
                         </div>
                     </fieldset>
                 </div><!-- /component-group1 //-->
@@ -175,7 +173,7 @@ $('#subtitles_dir').fileBrowser({ title: 'Select Subtitles Download Directory' }
                         </ul>
                         <input type="hidden" name="service_order" id="service_order" value="<%" ".join(['%s:%d' % (x['name'], x['enabled']) for x in sickbeard.subtitles.sortedServiceList()])%>"/>
 
-                        <br/><input type="submit" class="btn config_submitter" value="Save Changes" /><br/>
+                        <br><input type="submit" class="btn config_submitter" value="Save Changes" /><br>
                     </fieldset>
                 </div><!-- /component-group2 //-->
                 <div id="core-component-group3" class="component-group">
@@ -211,7 +209,7 @@ $('#subtitles_dir').fileBrowser({ title: 'Select Subtitles Download Directory' }
                                 </label>
                             </div>
                         % endfor
-                        <br/><input type="submit" class="btn config_submitter" value="Save Changes" /><br/>
+                        <br><input type="submit" class="btn config_submitter" value="Save Changes" /><br>
                     </fieldset>
                 </div><!-- /component-group3 //-->
             </div><!-- /config-components //-->

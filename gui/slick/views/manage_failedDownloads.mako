@@ -9,10 +9,6 @@
     from sickbeard.common import SKIPPED, WANTED, UNAIRED, ARCHIVED, IGNORED, SNATCHED, SNATCHED_PROPER, SNATCHED_BEST, FAILED
     from sickbeard.common import Quality, qualityPresets, qualityPresetStrings, statusStrings, Overview
 %>
-<%block name="scripts">
-<script type="text/javascript" src="${srRoot}/js/new/manage_failedDownloads.js"></script>
-<script type="text/javascript" src="${srRoot}/js/failedDownloads.js?${sbPID}"></script>
-</%block>
 <%block name="content">
 % if not header is UNDEFINED:
     <h1 class="header">${header}</h1>
@@ -35,7 +31,7 @@
       <th class="nowrap" width="75%" style="text-align: left;">Release</th>
       <th width="10%">Size</th>
       <th width="14%">Provider</th>
-      <th width="1%">Remove<br />
+      <th width="1%">Remove<br>
           <input type="checkbox" class="bulkCheck" id="removeCheck" />
       </th>
     </tr>
@@ -47,7 +43,6 @@
   </tfoot>
   <tbody>
 % for hItem in failedResults:
-<% curRemove  = "<input type=\"checkbox\" class=\"removeCheck\" id=\"remove-"+hItem["release"]+"\" />" %>
   <tr>
     <td class="nowrap">${hItem["release"]}</td>
     <td align="center">
@@ -65,7 +60,7 @@
         <img src="${srRoot}/images/providers/missing.png" width="16" height="16" alt="missing provider" title="missing provider"/>
     % endif
     </td>
-    <td align="center">${curRemove}</td>
+    <td align="center"><input type="checkbox" class="removeCheck" id="remove-${hItem["release"]}" /></td>
   </tr>
 % endfor
   </tbody>

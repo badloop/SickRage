@@ -41,7 +41,7 @@ Automatic Video Library Manager for TV Shows. It watches for new episodes of you
 ##### [Wiki](https://github.com/SickRage/SickRage/wiki)
 
 #### Important
-Before using this with your existing database (sickbeard.db) please make a backup copy of it and delete any other database files such as cache.db and failed.db if present<br/>
+Before using this with your existing database (sickbeard.db) please make a backup copy of it and delete any other database files such as cache.db and failed.db if present<br>
 We HIGHLY recommend starting out with no database files at all to make this a fresh start but the choice is at your own risk
 
 #### Supported providers
@@ -58,4 +58,4 @@ A full list can be found here: [Link](https://github.com/SickRage/sickrage-issue
 ![image](https://raw.githubusercontent.com/SickRage/SickRage/master/gui/slick/images/providers/dognzb.png)[DOGnzb](dognzb.cr)
 
 #### News and Changelog
-[news.md and CHANGES.md have moved to a separate repo, click here](http://github.com/SickRage/sickrage-news)
+[news.md and CHANGES.md have moved to a separate repo, click here](https://github.com/SickRage/sickrage.github.io)

@@ -1,3 +1,5 @@
+# coding=utf-8
+
 # Author: Sebastien Erard <sebastien_erard@hotmail.com>
 # URL: http://code.google.com/p/sickbeard/
 #
@@ -26,7 +28,7 @@ from sickrage.helper.encoding import ek
 from sickrage.helper.exceptions import ex
 
 
-class synoIndexNotifier:
+class synoIndexNotifier(object):
     def notify_snatch(self, ep_name):
         pass
 
@@ -54,7 +56,7 @@ class synoIndexNotifier:
             try:
                 p = subprocess.Popen(synoindex_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                      cwd=sickbeard.PROG_DIR)
-                out, err = p.communicate()  #@UnusedVariable
+                out, err = p.communicate()  # @UnusedVariable
                 logger.log(u"Script result: " + str(out), logger.DEBUG)
             except OSError, e:
                 logger.log(u"Unable to run synoindex: " + ex(e), logger.ERROR)
@@ -79,7 +81,7 @@ class synoIndexNotifier:
             try:
                 p = subprocess.Popen(synoindex_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                                      cwd=sickbeard.PROG_DIR)
-                out, err = p.communicate()  #@UnusedVariable
+                out, err = p.communicate()  # @UnusedVariable
                 logger.log(u"Script result: " + str(out), logger.DEBUG)
             except OSError, e:
                 logger.log(u"Unable to run synoindex: " + ex(e), logger.ERROR)
